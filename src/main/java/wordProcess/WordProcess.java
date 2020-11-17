@@ -56,8 +56,7 @@ public class WordProcess {
 
         for (int i = 0; i < sortedList.get(0).length(); i++) {
             char ch = sortedList.get(0).charAt(i);
-            //без этого стрим ругается
-            int j = i;
+            int j = i; //без этого стрим ругается
             if(sortedList.stream().allMatch((s)->s.indexOf(ch) == j)) {
                 result += ch;
             }
