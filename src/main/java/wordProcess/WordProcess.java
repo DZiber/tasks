@@ -3,6 +3,8 @@ package wordProcess;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by ZeBr on 10.11.2020.
@@ -20,7 +22,7 @@ public class WordProcess {
         if (isNaturalOrder) {
             list.sort(Comparator.naturalOrder());
         } else {
-            list.sort(Comparator.naturalOrder());
+            list.sort(Comparator.reverseOrder());
         }
         return list;
     }
@@ -39,11 +41,29 @@ public class WordProcess {
             }
             if (count == sortedList.size()) {
                 result += ch;
-            } else {
-                result = "Нет похожих букв";
             }
+        }
 
+        if (result.length() == 0) {
+            result = "Нет совпадающих символов";
+        }
+        return result;
+    }
 
+    public String getPrefixOnStreams() {
+        String result = "";
+        List<String> sortedList = this.myString.stream().sorted().collect(Collectors.toList());
+
+        for (int i = 0; i < sortedList.get(0).length(); i++) {
+            char ch = sortedList.get(0).charAt(i);
+            //без этого стрим ругается
+            int j = i;
+            if(sortedList.stream().allMatch((s)->s.indexOf(ch) == j)) {
+                result += ch;
+            }
+        }
+        if (result.length() == 0) {
+            result = "Нет совпадающих символов";
         }
         return result;
     }
